@@ -9,6 +9,8 @@ const[duration,setDuration]=useState("");
 const[manager,setManager]=useState("");
 const[dev,setDev]=useState("");
 const[error,setError]=useState(null);
+
+const[emptyFields,setEmptyFields]=useState([]);
 const{dispatch}=useProjectContext();
 
 const handleSubmit=async(e)=>{
@@ -31,7 +33,7 @@ const handleSubmit=async(e)=>{
     //if not 
     if(!res.ok){
         setError(json.error);
-    }
+        setEmptyFields(json.emptyFields);}
     //reset
     if(res.ok){
         setTitle('');
@@ -41,6 +43,7 @@ const handleSubmit=async(e)=>{
         setManager('');
         setDev('');
         setError(null);
+        setEmptyFields([]);
         dispatch({type:"CREATE_PROJECT",payload:json});
         
     }
@@ -59,7 +62,7 @@ const handleSubmit=async(e)=>{
      htmlFor='title'className='cursor-pointer hover:text-sky-400 duration-300'>Project title</label>
      <input  value={title}
      onChange={(e)=>setTitle(e.target.value)}type='text' placeholder='Enter project title' id='title'
-     className='bg-transparent border border-slate-500 py-3 px-5 rounded-lg outline-none focus:border-sky-400 duration-300'/>
+     className={`bg-transparent border  py-3 px-5 rounded-lg outline-none focus:border-sky-400 duration-300 ${emptyFields.includes('title') ?"border-red-500":"border-slate-500"}`}/>
    </div>
    
  <div className='form-control flex flex-col gap-2'>
@@ -67,7 +70,7 @@ const handleSubmit=async(e)=>{
      <input  value={tech}
      onChange={(e)=>setTech(e.target.value)}
      type='text' placeholder='Enter tech react redux' id='tech'
-     className='bg-transparent border border-slate-500 py-3 px-5 rounded-lg outline-none focus:border-sky-400 duration-300'/>
+     className={`bg-transparent border  py-3 px-5 rounded-lg outline-none focus:border-sky-400 duration-300 ${emptyFields.includes('tech') ?"border-red-500":"border-slate-500"}`}/>
    </div>
    
     <div className='form-control flex flex-col gap-2'>
@@ -75,7 +78,7 @@ const handleSubmit=async(e)=>{
      <input type='number'  value={budget}
      onChange={(e)=>setBudget(e.target.value)}
      placeholder='Enter project budget in US dollar' id='budget'
-     className='bg-transparent border border-slate-500 py-3 px-5 rounded-lg outline-none focus:border-sky-400 duration-300'/>
+     className={`bg-transparent border  py-3 px-5 rounded-lg outline-none focus:border-sky-400 duration-300 ${emptyFields.includes('budget') ?"border-red-500":"border-slate-500"}`}/>
    </div>
    
     <div className='form-control flex flex-col gap-2'>
@@ -84,7 +87,7 @@ const handleSubmit=async(e)=>{
       value={duration}
      onChange={(e)=>setDuration(e.target.value)}
      placeholder='1 week' id='duration'
-     className='bg-transparent border border-slate-500 py-3 px-5 rounded-lg outline-none focus:border-sky-400 duration-300'/>
+     className={`bg-transparent border  py-3 px-5 rounded-lg outline-none focus:border-sky-400 duration-300 ${emptyFields.includes('duration') ?"border-red-500":"border-slate-500"}`}/>
    </div>
    
     <div className='form-control flex flex-col gap-2'>
@@ -93,7 +96,7 @@ const handleSubmit=async(e)=>{
       value={manager}
      onChange={(e)=>setManager(e.target.value)}
      placeholder='give name ' id='manager'
-     className='bg-transparent border border-slate-500 py-3 px-5 rounded-lg outline-none focus:border-sky-400 duration-300'/>
+     className={`bg-transparent border  py-3 px-5 rounded-lg outline-none focus:border-sky-400 duration-300 ${emptyFields.includes('manager') ?"border-red-500":"border-slate-500"}`}/>
    </div>
    
     <div className='form-control flex flex-col gap-2'>
@@ -102,7 +105,7 @@ const handleSubmit=async(e)=>{
       value={dev}
      onChange={(e)=>setDev(e.target.value)}
      placeholder='dev name ' id='dev'
-     className='bg-transparent border border-slate-500 py-3 px-5 rounded-lg outline-none focus:border-sky-400 duration-300'/>
+     className={`bg-transparent border  py-3 px-5 rounded-lg outline-none focus:border-sky-400 duration-300 ${emptyFields.includes('dev') ?"border-red-500":"border-slate-500"}`}/>
    </div>
    
 
