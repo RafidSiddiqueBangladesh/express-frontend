@@ -1,12 +1,13 @@
 import {createContext,useReducer } from "react";
 
 const initialState={
-    projects:null,
+    projects:[],
 };
 export const projectReducer=(state,action)=>{
     switch(action.type){
         case 'SET_PROJECTS':
             return{
+                ...state,
                 projects:action.payload,
             };
         case "CREATE_PROJECT":
@@ -19,6 +20,12 @@ export const projectReducer=(state,action)=>{
                 ...state,
                 projects:state.projects.filter((project)=>project._id!== action.payload._id),
             }
+        case "UPDATE_PROJECT":
+            const [existingProject]=state.projects.filter((project)=>project._id===action.payload._id);
+            return{
+...state,projects:[action.payload,...state.projects.filter((project)=>project._id!==existingProject._id),],
+            };
+
         default:
             return state;
     }

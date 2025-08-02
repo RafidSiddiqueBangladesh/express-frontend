@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { ProjectContextProvider } from './context/ProjectContest';
+import{AuthContextProvider} from './context/AuthContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -11,7 +12,10 @@ root.render(
     <BrowserRouter>
 
     <ProjectContextProvider>
-            <App />     
+           <AuthContextProvider>
+            
+             <App />  
+            </AuthContextProvider>   
     </ProjectContextProvider>
       
     </BrowserRouter>
